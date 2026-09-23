@@ -10,24 +10,6 @@ A production-minded, Hebrew-first booking system for a single-provider barbersho
 
 ---
 
-## Screenshots
-
-<p align="center">
-  <img src="docs/screenshots/customer-home.webp" alt="Customer booking home screen" width="46%" />
-  <img src="docs/screenshots/admin-calendar.webp" alt="Admin calendar with available appointment slots" width="46%" />
-</p>
-
-<p align="center">
-  <img src="docs/screenshots/admin-hours-weekly.webp" alt="Admin weekly opening hours" width="46%" />
-  <img src="docs/screenshots/admin-hours-special.webp" alt="Admin special hours and date-range closure controls" width="46%" />
-</p>
-
-<p align="center">
-  Customer booking · Admin calendar · Weekly hours · Special hours and closures
-</p>
-
----
-
 ## Try the Demo
 
 The public deployment is intentionally interactive. You can explore both sides of the system without affecting real business data.
