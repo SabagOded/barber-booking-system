@@ -4,6 +4,12 @@ A full-stack, Hebrew-first appointment booking system for a single-provider barb
 
 This repository is the public portfolio release of the project. It contains the customer booking experience, the admin workspace, the scheduling domain logic, database migrations, and the automated test suite.
 
+### Live demo
+
+**[Customer booking flow](https://barber-booking-xi-ruby.vercel.app/)** · **[Admin workspace](https://barber-booking-xi-ruby.vercel.app/admin)**
+
+The hosted instance is a portfolio demo running with demo-oriented infrastructure and resettable data. The repository remains the source of truth for the public release.
+
 ## Highlights
 
 - Customer booking flow with service, date and time selection
