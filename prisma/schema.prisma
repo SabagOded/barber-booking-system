@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum AppointmentStatus {
+  scheduled
+  cancelled
+  completed
+}
+
+enum LogoDisplaySize {
+  small
+  medium
+  large
+}
+
+model Settings {
+  id                  Int    @id
+  businessName        String
+  providerName          String
+  phone               String
+  whatsappPhone       String
+  address             String @default("")
+  calendarNote        String @default("")
+  tagline             String @default("")
+  doorNotice          String @default("")
+  doorNoticeUntil     String @default("")
+  timezone            String @default("Asia/Jerusalem")
+  slotIntervalMinutes Int    @default(30)
+  logoStorageKey      String?
+  logoDisplaySize     LogoDisplaySize @default(medium)
+  demoResetAt         DateTime?
+  portfolioImages     PortfolioImage[]
+}
+
+model PortfolioImage {
+  id         String   @id @default(cuid())
+  settingsId Int
+  settings   Settings @relation(fields: [settingsId], references: [id], onDelete: Cascade)
+  storageKey String   @unique
+  sortOrder  Int
+  focalX     Float    @default(50)
+  focalY     Float    @default(50)
+  createdAt  DateTime @default(now())
+
+  @@unique([settingsId, sortOrder])
+  @@index([settingsId, sortOrder])
+}
+
+model Service {
+  id              String        @id @default(cuid())
+  name            String
+  durationMinutes Int
+  priceAgorot     Int?
+  active          Boolean       @default(true)
+  sortOrder       Int           @default(0)
+  appointments    Appointment[]
+}
+
+model WorkingHours {
+  id        String  @id @default(cuid())
+  weekday   Int     @unique
+  isOpen    Boolean
+  openTime  String
+  closeTime String
+}
+
+model ClosedDate {
+  id     String  @id @default(cuid())
+  date   String  @unique
+  reason String?
+}
+
+model HoursOverride {
+  id        String @id @default(cuid())
+  date      String @unique
+  openTime  String
+  closeTime String
+}
+
+model TimeBlock {
+  id      String   @id @default(cuid())
+  startAt DateTime
+  endAt   DateTime
+  reason  String?
+}
+
+model Appointment {
+  id            String            @id @default(cuid())
+  customerName  String
+  customerPhone String?
+  serviceId     String
+  service       Service           @relation(fields: [serviceId], references: [id])
+  startAt       DateTime
+  endAt         DateTime
+  status        AppointmentStatus @default(scheduled)
+  createdAt     DateTime          @default(now())
+  cancelledAt   DateTime?
+}

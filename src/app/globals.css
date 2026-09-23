@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #332f2a;
+  --bg-2: #3a3630;
+  --card: #1f1c19;
+  --card-2: #28241f;
+  --line: rgba(201, 162, 84, 0.22);
+  --line-strong: rgba(201, 162, 84, 0.45);
+  --brass: #c9a254;
+  --brass-hi: #e4c27a;
+  --cream: #f3ead9;
+  --sand: #b7a78d;
+  --mute: #8a7b68;
+  --taken: #6e6356;
+  --danger: #d07a6c;
+  --ok: #8fbf8a;
+  --ink: #1a140e;
+  --reschedule: #5482a6;
+  --reschedule-hi: #8cb0d0;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brass: var(--brass);
+  --color-brass-hi: var(--brass-hi);
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
+  --color-mute: var(--mute);
+  --color-taken: var(--taken);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --color-ink: var(--ink);
+  --color-reschedule: var(--reschedule);
+  --color-reschedule-hi: var(--reschedule-hi);
+  --font-sans: var(--font-assistant);
+  --font-display: var(--font-frank);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-assistant), "Segoe UI", Tahoma, sans-serif;
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.04;
+  background-image: repeating-radial-gradient(
+    circle at 18% 22%,
+    #fff 0 0.4px,
+    transparent 0.5px 2.6px
+  );
+}
+
+.shop-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.font-display {
+  font-family: var(--font-frank), "Times New Roman", serif;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+input,
+button,
+a {
+  touch-action: manipulation;
+  transition:
+    color 180ms ease-out,
+    background-color 180ms ease-out,
+    border-color 180ms ease-out,
+    box-shadow 180ms ease-out,
+    transform 180ms ease-out,
+    filter 180ms ease-out,
+    opacity 180ms ease-out;
+}
+
+/*
+ * iOS WebKit miscalculates 100%-wide native date/time controls when the
+ * replaced element itself has inline padding. Keep that padding off the
+ * native control so its border box can shrink without disabling its picker.
+ */
+input:is(
+  [type="date"],
+  [type="time"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="week"]
+) {
+  box-sizing: border-box;
+  width: 100%;
+  inline-size: 100%;
+  min-width: 0;
+  min-inline-size: 0;
+  max-width: 100%;
+  max-inline-size: 100%;
+  padding-inline: 0;
+  overflow: hidden;
+}
+
+input:is(
+  [type="date"],
+  [type="time"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="week"]
+)::-webkit-date-and-time-value {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-inline-size: 0;
+  max-width: 100%;
+  max-inline-size: 100%;
+  padding-right: 0.5rem;
+  text-align: right;
+}
+
+label:has(
+  > input:is(
+    [type="date"],
+    [type="time"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="week"]
+  )
+) {
+  min-width: 0;
+  min-inline-size: 0;
+  max-width: 100%;
+  max-inline-size: 100%;
+}
+
+.step-panel {
+  animation: step-in-forward 200ms ease-out;
+}
+
+.step-panel.back {
+  animation: step-in-back 200ms ease-out;
+}
+
+@keyframes step-in-forward {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes step-in-back {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pressable:not(:disabled):active,
+.pressable.is-pressed {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px var(--brass);
+  background-color: var(--card-2);
+}
+
+.btn-primary:active:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.month-track {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  transition: transform 200ms ease-out;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.month-grid-days {
+  height: 100%;
+  min-height: 0;
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+}
+
+.ticket-stamped {
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+
+.progress-rail {
+  height: 2px;
+  background: var(--line);
+}
+
+.progress-rail > span {
+  display: block;
+  height: 100%;
+  background: var(--brass);
+  transition: width 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.admin-card {
+  border: 1px solid rgba(201, 162, 84, 0.52);
+  background: rgba(31, 28, 25, 0.92);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.admin-card-soft {
+  border: 1px solid rgba(201, 162, 84, 0.38);
+  background: rgba(31, 28, 25, 0.76);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+}
+
+.admin-row {
+  border: 1px solid rgba(201, 162, 84, 0.28);
+  background: rgba(58, 54, 48, 0.72);
+}
